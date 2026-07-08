@@ -414,6 +414,7 @@ export default function Home() {
             <span className="text-[9px] font-extrabold uppercase tracking-[0.25em] text-slate-300">Scroll</span>
             <ChevronDown className="w-4 h-4 text-slate-300" />
           </div>
+        </div>
       </section>
 
       {/* ===== 1.5 TRUSTED BY RIBBON (Infinite Marquee) ===== */}

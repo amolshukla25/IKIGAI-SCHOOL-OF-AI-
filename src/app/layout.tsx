@@ -3,6 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import Link from "next/link";
 import { HomepageJsonLd } from "@/components/JsonLd";
 import Navbar from "@/components/Navbar";
+import FloatingSocials from "@/components/FloatingSocials";
 import "./globals.css";
 
 const inter = Inter({
@@ -201,6 +202,9 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+
+        {/* ===== FLOATING SOCIAL MEDIA BUTTONS ===== */}
+        <FloatingSocials />
       </body>
     </html>
   );

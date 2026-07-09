@@ -36,6 +36,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import ThreeJsCanvas from '@/components/ThreeJsCanvas';
+import InquirySuccessModal from '@/components/InquirySuccessModal';
 
 // 3D tilt-on-mouse hook — premium interactive card effect
 function useTilt() {
@@ -130,6 +131,8 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: 'AI Builder Fellowship (SapienOne + IIT Kanpur)' });
   const [inquiryStatus, setInquiryStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successModalData, setSuccessModalData] = useState({ name: '', email: '', phone: '', course: '' });
   const [playVideo, setPlayVideo] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
@@ -186,8 +189,11 @@ export default function Home() {
   const handleInquirySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setInquiryStatus('loading');
+    const capturedData = { ...formData };
     setTimeout(() => {
       setInquiryStatus('success');
+      setSuccessModalData(capturedData);
+      setShowSuccessModal(true);
       setFormData({ name: '', email: '', phone: '', course: 'AI Builder Fellowship (SapienOne + IIT Kanpur)' });
       setTimeout(() => setInquiryStatus('idle'), 4000);
     }, 800);
@@ -1089,6 +1095,13 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Inquiry Lead Connect Modal */}
+      <InquirySuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        leadData={successModalData}
+      />
       
     </main>
   );

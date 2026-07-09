@@ -5,10 +5,13 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronRight, Sparkles, Camera, Heart, Star, CheckCircle2, TrendingUp, Users, Zap } from 'lucide-react';
 import Link from 'next/link';
+import InquirySuccessModal from '@/components/InquirySuccessModal';
 
 export default function InfluencerMarketingClient() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: 'Influencer Marketing (6-Month Professional Course)' });
   const [inquiryStatus, setInquiryStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successModalData, setSuccessModalData] = useState({ name: '', email: '', phone: '', course: '' });
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -24,8 +27,11 @@ export default function InfluencerMarketingClient() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setInquiryStatus('loading');
+    const capturedData = { ...formData };
     setTimeout(() => {
       setInquiryStatus('success');
+      setSuccessModalData(capturedData);
+      setShowSuccessModal(true);
       setFormData({ name: '', email: '', phone: '', course: 'Influencer Marketing (6-Month Professional Course)' });
       setTimeout(() => setInquiryStatus('idle'), 4000);
     }, 800);
@@ -165,6 +171,13 @@ export default function InfluencerMarketingClient() {
           </div>
         </div>
       </section>
+
+      {/* Inquiry Lead Connect Modal */}
+      <InquirySuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        leadData={successModalData}
+      />
     </main>
   );
 }

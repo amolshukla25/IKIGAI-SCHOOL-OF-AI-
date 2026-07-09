@@ -5,10 +5,13 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ChevronRight, Award, BrainCircuit, Code, Terminal, Zap, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import InquirySuccessModal from '@/components/InquirySuccessModal';
 
 export default function AIBuilderPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', course: 'AI Builder Fellowship (SapienOne + IIT Kanpur)' });
   const [inquiryStatus, setInquiryStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [successModalData, setSuccessModalData] = useState({ name: '', email: '', phone: '', course: '' });
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
@@ -31,8 +34,11 @@ export default function AIBuilderPage() {
   const handleInquirySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setInquiryStatus('loading');
+    const capturedData = { ...formData };
     setTimeout(() => {
       setInquiryStatus('success');
+      setSuccessModalData(capturedData);
+      setShowSuccessModal(true);
       setFormData({ name: '', email: '', phone: '', course: 'AI Builder Fellowship (SapienOne + IIT Kanpur)' });
     }, 800);
   };
@@ -189,6 +195,12 @@ export default function AIBuilderPage() {
         </div>
       </section>
 
+      {/* Inquiry Lead Connect Modal */}
+      <InquirySuccessModal
+        isOpen={showSuccessModal}
+        onClose={() => setShowSuccessModal(false)}
+        leadData={successModalData}
+      />
     </main>
   );
 }

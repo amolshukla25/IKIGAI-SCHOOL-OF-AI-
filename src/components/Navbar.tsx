@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronRight, Sparkles } from 'lucide-react';
+import IkigaiLogo from '@/components/IkigaiLogo';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -41,19 +42,10 @@ export default function Navbar() {
     <div className="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-6xl z-50">
       <header className="clay-nav px-5 sm:px-8 h-16 flex items-center justify-between relative">
         {/* Logo */}
-        <Link href="/" className="flex items-center group gap-2.5">
-          {/* Kanji Emblem */}
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-black text-xl shadow-[3px_3px_10px_rgba(99,102,241,0.25)] group-hover:scale-110 transition-transform duration-300">
-            生
-          </div>
-          <div className="flex flex-col justify-center select-none">
-            <span className="text-base font-black tracking-tight text-slate-800 leading-none">
-              IKIGAI
-            </span>
-            <span className="text-[8px] font-extrabold text-slate-400 uppercase tracking-[0.2em] leading-none mt-0.5">
-              School of AI
-            </span>
-          </div>
+        <Link href="/" className="flex items-center group">
+          <span className="group-hover:scale-105 transition-transform duration-300 inline-flex">
+            <IkigaiLogo size={38} />
+          </span>
         </Link>
 
         {/* Desktop Nav Links */}

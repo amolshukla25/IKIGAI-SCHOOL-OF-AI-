@@ -3,6 +3,7 @@ import { Inter, Montserrat } from "next/font/google";
 import Link from "next/link";
 import { HomepageJsonLd } from "@/components/JsonLd";
 import Navbar from "@/components/Navbar";
+import IkigaiLogo from "@/components/IkigaiLogo";
 import FloatingSocials from "@/components/FloatingSocials";
 import "./globals.css";
 
@@ -133,14 +134,8 @@ export default function RootLayout({
               <div className="flex flex-col lg:flex-row items-start justify-between gap-8 mb-8">
                 {/* Footer Logo + Description */}
                 <div className="max-w-sm">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center text-white font-black text-lg shadow-[2px_2px_8px_rgba(99,102,241,0.2)]">
-                      生
-                    </div>
-                    <div className="flex flex-col justify-center select-none">
-                      <span className="text-sm font-black tracking-tight text-slate-700 leading-none">IKIGAI</span>
-                      <span className="text-[7px] font-extrabold text-slate-400 uppercase tracking-[0.2em] leading-none mt-0.5">School of AI</span>
-                    </div>
+                  <div className="mb-3">
+                    <IkigaiLogo size={32} />
                   </div>
                   <p className="text-xs text-slate-500 leading-relaxed font-medium">
                     Ludhiana&apos;s premier AI training institute offering IIT Kanpur certified courses in Artificial Intelligence, Data Science, Digital Marketing, and Influencer Marketing with paid internships and guaranteed placement support.

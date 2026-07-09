@@ -11,6 +11,7 @@ import {
   Briefcase,
   Compass
 } from 'lucide-react';
+import IkigaiLogo from '@/components/IkigaiLogo';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -101,8 +102,8 @@ export default function LoginPage() {
         
         {/* Title */}
         <div className="text-center mb-8">
-          <div className="w-12 h-12 rounded-xl bg-gradient-to-tr from-indigo-500 to-sky-400 flex items-center justify-center font-extrabold text-white text-2xl mx-auto mb-4 shadow-[3px_3px_10px_rgba(99,102,241,0.25)]">
-            生
+          <div className="flex justify-center mb-4">
+            <IkigaiLogo size={44} showText={false} />
           </div>
           <h2 className="text-2xl font-black text-gray-800">Academy Login</h2>
           <p className="text-xs text-gray-500 font-bold mt-2">Enter credentials or choose a quick login demo account.</p>

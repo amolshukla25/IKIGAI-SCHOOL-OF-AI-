@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import Link from "next/link";
+import Script from "next/script";
 import { HomepageJsonLd } from "@/components/JsonLd";
 import Navbar from "@/components/Navbar";
 import IkigaiLogo from "@/components/IkigaiLogo";
@@ -111,6 +112,20 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* JSON-LD Structured Data */}
         <HomepageJsonLd />
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-L08XGKVG0F"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-L08XGKVG0F');
+          `}
+        </Script>
       </head>
       <body className="min-h-full flex flex-col overflow-x-hidden font-sans">
 

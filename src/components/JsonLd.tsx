@@ -294,3 +294,62 @@ export function HomepageJsonLd() {
     </>
   );
 }
+
+// ── BlogPosting (Articles) ───────────────────────────────────
+interface BlogPostingJsonLdProps {
+  title: string;
+  description: string;
+  url: string;
+  image: string;
+  datePublished: string;
+  dateModified?: string;
+  authorName?: string;
+  publisherName?: string;
+}
+
+export function BlogPostingJsonLd({
+  title,
+  description,
+  url,
+  image,
+  datePublished,
+  dateModified,
+  authorName = 'Ikigai School of AI',
+  publisherName = 'Ikigai School of AI',
+}: BlogPostingJsonLdProps) {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description: description,
+    image: image,
+    datePublished: datePublished,
+    dateModified: dateModified || datePublished,
+    url: `${BASE_URL}${url}`,
+    author: {
+      '@type': 'Organization',
+      name: authorName,
+      url: BASE_URL,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: publisherName,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${BASE_URL}/favicon.ico`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${BASE_URL}${url}`,
+    },
+  };
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  );
+}
+

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { blogPosts, getBlogBySlug } from '../blogData';
 import BlogPostClient from './BlogPostClient';
+import { BlogPostingJsonLd } from '@/components/JsonLd';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -60,5 +61,16 @@ export default async function BlogPostPage({ params }: PageProps) {
     .filter((p) => p.category === post.category && p.slug !== post.slug)
     .slice(0, 3);
 
-  return <BlogPostClient post={post} relatedPosts={relatedPosts} />;
+  return (
+    <>
+      <BlogPostingJsonLd
+        title={post.title}
+        description={post.excerpt}
+        url={`/stories/${post.slug}`}
+        image={post.image}
+        datePublished={post.date}
+      />
+      <BlogPostClient post={post} relatedPosts={relatedPosts} />
+    </>
+  );
 }

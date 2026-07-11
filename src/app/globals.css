@@ -419,6 +419,7 @@ h1, h2, h3, h4, h5, h6 {
   width: max-content;
   gap: 3.5rem;
   animation: marquee-scroll 24s linear infinite;
+  will-change: transform;
 }
 
 .marquee:hover .marquee-track {
@@ -469,6 +470,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .animate-ken-burns {
   animation: ken-burns 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+/* ===== GSAP FADE-UP HARDWARE ACCELERATION ===== */
+.fade-up {
+  will-change: transform, opacity;
 }
 
 /* ===== CUSTOM SCROLLBAR (Clay Style) ===== */

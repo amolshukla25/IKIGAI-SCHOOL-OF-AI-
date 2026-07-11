@@ -93,10 +93,9 @@ export const metadata: Metadata = {
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
     ],
   },
-  // Uncomment after registering with Google Search Console:
-  // verification: {
-  //   google: 'YOUR_GOOGLE_VERIFICATION_CODE',
-  // },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
   category: "Education",
 };
 

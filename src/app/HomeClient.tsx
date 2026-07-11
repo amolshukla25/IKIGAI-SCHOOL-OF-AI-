@@ -35,8 +35,10 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import ThreeJsCanvas from '@/components/ThreeJsCanvas';
+import dynamic from 'next/dynamic';
 import InquirySuccessModal from '@/components/InquirySuccessModal';
+
+const ThreeJsCanvas = dynamic(() => import('@/components/ThreeJsCanvas'), { ssr: false });
 
 // 3D tilt-on-mouse hook — premium interactive card effect
 function useTilt() {
@@ -134,9 +136,15 @@ export default function HomeClient() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [successModalData, setSuccessModalData] = useState({ name: '', email: '', phone: '', course: '' });
   const [playVideo, setPlayVideo] = useState(false);
+  const [loadCanvas, setLoadCanvas] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Only load canvas on screens >= 1024px (desktop) to optimize TBT
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setLoadCanvas(true);
+    }
+
     gsap.registerPlugin(ScrollTrigger);
 
     const fadeElements = document.querySelectorAll('.fade-up');
@@ -233,7 +241,7 @@ export default function HomeClient() {
       <section ref={heroRef} className="relative w-full min-h-[90vh] overflow-hidden flex items-center py-16">
         {/* Three.js Background */}
         <div className="absolute inset-0 z-0 opacity-30">
-          <ThreeJsCanvas />
+          {loadCanvas && <ThreeJsCanvas />}
         </div>
 
         {/* Decorative Blobs */}
@@ -331,7 +339,7 @@ export default function HomeClient() {
               {/* Main hero image */}
               <div className="img-frame relative aspect-[4/5] max-w-md mx-auto rounded-[32px] shadow-[12px_12px_32px_rgba(166,160,200,0.45),-8px_-8px_20px_rgba(255,255,255,0.9)] border border-white/60">
                 <Image
-                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop"
+                  src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
                   alt="Students collaborating on AI projects at Ikigai School of AI"
                   fill
                   priority

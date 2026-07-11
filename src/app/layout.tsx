@@ -107,6 +107,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${montserrat.variable} h-full antialiased`}>
       <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
         {/* JSON-LD Structured Data */}
         <GlobalJsonLd />
         {/* Google Analytics (gtag.js) */}

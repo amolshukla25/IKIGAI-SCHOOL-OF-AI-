@@ -126,8 +126,9 @@ export default function ThreeJsCanvas() {
     group.add(glowRing);
 
     // --- Particle System (nodes + connections) ---
-    const nodeCount = 60;
-    const nodeGeometry = new THREE.SphereGeometry(0.3, 12, 12);
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    const nodeCount = isMobile ? 25 : 60;
+    const nodeGeometry = new THREE.SphereGeometry(0.2, 8, 8);
     const nodeMaterials = [
       new THREE.MeshStandardMaterial({ color: 0x6366f1, emissive: 0x6366f1, emissiveIntensity: 0.8 }),
       new THREE.MeshStandardMaterial({ color: 0x06b6d4, emissive: 0x06b6d4, emissiveIntensity: 0.6 }),
@@ -176,7 +177,7 @@ export default function ThreeJsCanvas() {
     group.add(lineSegments);
 
     // --- Floating shimmer particles (small dots) ---
-    const shimmerCount = 200;
+    const shimmerCount = isMobile ? 60 : 200;
     const shimmerGeo = new THREE.BufferGeometry();
     const shimmerPos = new Float32Array(shimmerCount * 3);
     const shimmerSizes = new Float32Array(shimmerCount);
@@ -212,12 +213,28 @@ export default function ThreeJsCanvas() {
     };
     window.addEventListener('mousemove', handleMouseMove);
 
+    // Viewport Intersection Observer
+    let isVisible = true;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+      },
+      { threshold: 0.01 }
+    );
+    observer.observe(container);
+
     const clock = new THREE.Clock();
     let animationFrameId = 0;
+    let frameCount = 0;
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
+      
+      // Stop rendering calculations when component is scrolled offscreen
+      if (!isVisible) return;
+
       const elapsed = clock.getElapsedTime();
+      frameCount++;
 
       // Smooth mouse follow
       currentX += (targetX - currentX) * 0.04;
@@ -262,19 +279,23 @@ export default function ThreeJsCanvas() {
         node.scale.setScalar(pulse);
       });
 
-      // Connection lines
-      const linePositions: number[] = [];
-      for (let i = 0; i < nodes.length; i++) {
-        const a = nodes[i].position;
-        for (let j = i + 1; j < nodes.length; j++) {
-          const b = nodes[j].position;
-          const dist = a.distanceTo(b);
-          if (dist < 24) {
-            linePositions.push(a.x, a.y, a.z, b.x, b.y, b.z);
+      // Throttle connection line distance checks to every 2 frames to reduce CPU load
+      if (frameCount % 2 === 0) {
+        const linePositions: number[] = [];
+        const maxDist = isMobile ? 20 : 24;
+        for (let i = 0; i < nodes.length; i++) {
+          const a = nodes[i].position;
+          for (let j = i + 1; j < nodes.length; j++) {
+            const b = nodes[j].position;
+            const dist = a.distanceTo(b);
+            if (dist < maxDist) {
+              linePositions.push(a.x, a.y, a.z, b.x, b.y, b.z);
+            }
           }
         }
+        lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+        lineGeometry.attributes.position.needsUpdate = true;
       }
-      lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
 
       // Shimmer particles slowly drift
       const shimmerPosAttr = shimmerPoints.geometry.attributes.position;
@@ -302,6 +323,7 @@ export default function ThreeJsCanvas() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       if (container && renderer.domElement) {

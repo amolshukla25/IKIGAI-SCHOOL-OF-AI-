@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import DigitalMarketingClient from './DigitalMarketingClient';
+import { CourseJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Best Digital Marketing Course in Ludhiana | 6-Month Professional Program',
@@ -28,5 +29,15 @@ export const metadata: Metadata = {
 };
 
 export default function DigitalMarketingPage() {
-  return <DigitalMarketingClient />;
+  return (
+    <>
+      <CourseJsonLd
+        name="Digital Marketing Course in Ludhiana"
+        description="6-month professional Digital Marketing course in Ludhiana covering Google Ads, Meta Ads, SEO, content marketing, and live campaigns with placement assistance."
+        url="/programs/digital-marketing"
+        duration="P6M"
+      />
+      <DigitalMarketingClient />
+    </>
+  );
 }

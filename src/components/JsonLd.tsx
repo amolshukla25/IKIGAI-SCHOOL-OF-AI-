@@ -209,6 +209,16 @@ export function BreadcrumbJsonLd({ items }: { items: BreadcrumbItem[] }) {
   );
 }
 
+// ── Global JSON-LD (Org + WebSite) ──────────────────────────
+export function GlobalJsonLd() {
+  return (
+    <>
+      <OrganizationJsonLd />
+      <WebSiteJsonLd />
+    </>
+  );
+}
+
 // ── All Homepage Schema Combined ────────────────────────────
 export function HomepageJsonLd() {
   const faqItems: FAQItem[] = [
@@ -256,8 +266,6 @@ export function HomepageJsonLd() {
 
   return (
     <>
-      <OrganizationJsonLd />
-      <WebSiteJsonLd />
       <CourseJsonLd
         name="AI Builder Fellowship — Best AI Course in Ludhiana"
         description="8-month AI Builder Fellowship in Ludhiana with IIT Kanpur certification, GenAI & LLM training, ₹45K stipend, and placement support. Powered by SapienOne."

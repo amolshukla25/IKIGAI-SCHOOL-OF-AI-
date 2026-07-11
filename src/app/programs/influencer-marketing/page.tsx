@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import InfluencerMarketingClient from './InfluencerMarketingClient';
+import { CourseJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Best Influencer Marketing Course in Ludhiana | Content Creation & Brand Growth',
@@ -28,5 +29,15 @@ export const metadata: Metadata = {
 };
 
 export default function InfluencerMarketingPage() {
-  return <InfluencerMarketingClient />;
+  return (
+    <>
+      <CourseJsonLd
+        name="Influencer Marketing Course in Ludhiana"
+        description="Learn influencer marketing in Ludhiana — personal branding, content creation, Instagram & YouTube growth, brand collaborations, and monetization strategies."
+        url="/programs/influencer-marketing"
+        duration="P6M"
+      />
+      <InfluencerMarketingClient />
+    </>
+  );
 }

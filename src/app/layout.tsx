@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
-import { HomepageJsonLd } from "@/components/JsonLd";
+import { GlobalJsonLd } from "@/components/JsonLd";
 import Navbar from "@/components/Navbar";
 import IkigaiLogo from "@/components/IkigaiLogo";
 import FloatingSocials from "@/components/FloatingSocials";
@@ -110,7 +110,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         {/* JSON-LD Structured Data */}
-        <HomepageJsonLd />
+        <GlobalJsonLd />
         {/* Google Analytics (gtag.js) */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-L08XGKVG0F"

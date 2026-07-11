@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import IndustrialAIClient from './IndustrialAIClient';
+import { CourseJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Industrial AI Fellowship in Ludhiana | Paid Internships & PPO Support',
@@ -24,5 +25,16 @@ export const metadata: Metadata = {
 };
 
 export default function IndustrialAIPage() {
-  return <IndustrialAIClient />;
+  return (
+    <>
+      <CourseJsonLd
+        name="Industrial AI Fellowship — AI Course in Ludhiana"
+        description="6-8 month Industrial AI Fellowship in Ludhiana with Algo8 AI. Learn predictive maintenance, IIoT, and ML deployment with paid internship up to ₹15K/month and PPO pathway."
+        url="/programs/industrial-ai"
+        provider="Algo8 AI"
+        duration="P8M"
+      />
+      <IndustrialAIClient />
+    </>
+  );
 }

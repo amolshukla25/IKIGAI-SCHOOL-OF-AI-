@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import DataScienceClient from './DataScienceClient';
+import { CourseJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Best Data Science Course in Ludhiana | 6-Month Professional Program',
@@ -28,5 +29,15 @@ export const metadata: Metadata = {
 };
 
 export default function DataSciencePage() {
-  return <DataScienceClient />;
+  return (
+    <>
+      <CourseJsonLd
+        name="Data Science Course in Ludhiana"
+        description="6-month professional Data Science course in Ludhiana covering Python, Machine Learning, Deep Learning, and GenAI with end-to-end capstone projects and placement support."
+        url="/programs/data-science"
+        duration="P6M"
+      />
+      <DataScienceClient />
+    </>
+  );
 }

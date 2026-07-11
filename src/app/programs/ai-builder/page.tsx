@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import AIBuilderClient from './AIBuilderClient';
+import { CourseJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'AI Builder Fellowship in Ludhiana | IIT Kanpur Certified Course',
@@ -25,5 +26,16 @@ export const metadata: Metadata = {
 };
 
 export default function AIBuilderPage() {
-  return <AIBuilderClient />;
+  return (
+    <>
+      <CourseJsonLd
+        name="AI Builder Fellowship — Best AI Course in Ludhiana"
+        description="8-month AI Builder Fellowship in Ludhiana with IIT Kanpur certification, GenAI & LLM training, ₹45K stipend, and placement support. Powered by SapienOne."
+        url="/programs/ai-builder"
+        provider="SapienOne + IIT Kanpur"
+        duration="P8M"
+      />
+      <AIBuilderClient />
+    </>
+  );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import HomeClient from './HomeClient';
+import { HomepageJsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: 'Ikigai School of AI Ludhiana | AI, Data Science, Digital Marketing & Influencer Marketing Courses',
@@ -11,5 +12,10 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <HomeClient />;
+  return (
+    <>
+      <HomepageJsonLd />
+      <HomeClient />
+    </>
+  );
 }
